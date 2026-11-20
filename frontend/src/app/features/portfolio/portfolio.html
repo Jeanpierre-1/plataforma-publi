@@ -1,0 +1,45 @@
+<div class="container breadcrumb-row"><app-breadcrumbs current="Portafolio" /></div>
+
+<section class="container portfolio-intro" aria-labelledby="portfolio-title">
+  <p class="portfolio-label">El trabajo de {{ siteName }}</p>
+  <h1 id="portfolio-title">Portafolio</h1>
+  <p class="intro-copy">
+    Un espacio para compartir los eventos musicales y las piezas de gran formato que dan vida a
+    nuestras ideas.
+  </p>
+</section>
+
+<section class="container portfolio-empty" aria-labelledby="published-projects-title">
+  <div class="empty-art" aria-hidden="true">
+    <app-icon name="stage" /><span></span><app-icon name="print" />
+  </div>
+  <p class="portfolio-label">Próximamente</p>
+  <h2 id="published-projects-title">Los proyectos se publicarán aquí.</h2>
+  <p>
+    No hay proyectos publicados por el momento. Este espacio se completará con trabajos y
+    fotografías autorizados de {{ siteName }}.
+  </p>
+</section>
+
+<section class="container section-space" aria-labelledby="portfolio-services-title">
+  <div class="services-intro">
+    <p class="portfolio-label">Mientras tanto, conoce nuestra propuesta</p>
+    <h2 id="portfolio-services-title" class="section-title">
+      Música que reúne.<br />Ideas que se ven.
+    </h2>
+  </div>
+  <div class="service-links">
+    @for (service of services; track service.path) {
+      <a [routerLink]="service.path" class="service-link">
+        <app-icon [name]="service.theme === 'events' ? 'stage' : 'print'" />
+        <div>
+          <h3>{{ service.title }}</h3>
+          <p>{{ service.description }}</p>
+          <span class="link-label">Explorar {{ service.label.toLowerCase() }}</span>
+        </div>
+      </a>
+    }
+  </div>
+</section>
+
+<app-project-cta title="Una idea puede ser el comienzo." />

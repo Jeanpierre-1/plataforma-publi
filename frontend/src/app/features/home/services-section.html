@@ -1,0 +1,31 @@
+<section id="servicios" class="container section-space" aria-labelledby="services-title">
+  <div class="section-intro grid gap-5 md:grid-cols-2 md:items-end">
+    <div>
+      <p class="eyebrow mb-5">Lo que hacemos</p>
+      <h2 id="services-title" class="section-title">Dos formas de<br />hacerte presente.</h2>
+    </div>
+    <p class="body-copy">
+      Creamos experiencias y damos visibilidad a tus ideas. Encuentra el punto de partida para tu
+      próximo proyecto.
+    </p>
+  </div>
+  <div class="services-grid grid md:grid-cols-2">
+    @for (service of services; track service.path) {
+      <article class="service-card">
+        <div class="service-top">
+          <span>{{ service.number }} /</span><app-icon [name]="service.icon" />
+        </div>
+        <h3>{{ service.title }}</h3>
+        <p class="service-description">{{ service.description }}</p>
+        <ul class="service-tags">
+          @for (tag of service.tags; track tag) {
+            <li>{{ tag }}</li>
+          }
+        </ul>
+        <a class="text-link" [routerLink]="service.path"
+          >{{ service.linkLabel }} <app-icon name="diagonal"
+        /></a>
+      </article>
+    }
+  </div>
+</section>

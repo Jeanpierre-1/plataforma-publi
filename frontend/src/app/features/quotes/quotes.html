@@ -1,0 +1,158 @@
+<div class="container breadcrumb-row"><app-breadcrumbs current="Cotizaciones" /></div>
+<section class="container quote-intro" aria-labelledby="quotes-title">
+  <p class="quote-label">Sanabria Group · Cotizaciones</p>
+  <h1 id="quotes-title">Cotiza tus gigantografías.</h1>
+  <p>
+    Reúne varias piezas en una cotización. Cada ítem tiene su descripción, cantidad, medidas, precio
+    por m² y listones opcionales.
+  </p>
+</section>
+
+<div class="container quote-layout">
+  <form
+    class="quote-form"
+    novalidate
+    (submit)="$event.preventDefault()"
+    aria-label="Calculadora de gigantografías"
+  >
+    <div class="example-note">
+      <strong>Un ejemplo para empezar</strong>
+      <p>
+        Una pieza de 7 × 3 m a S/ 10 por m² = S/ 210. Puedes cambiar estos valores y agregar más
+        ítems.
+      </p>
+    </div>
+    @for (item of quoteForm.items; track item; let index = $index) {
+      <app-quote-item-editor [field]="item" [position]="index + 1" (remove)="removeItem($event)" />
+    } @empty {
+      <div class="empty-items">
+        <h2>Agrega tu primera pieza.</h2>
+        <p>Define las medidas y el precio para empezar una nueva cotización.</p>
+      </div>
+    }
+    <div class="form-actions">
+      <button #addButton appButton type="button" data-action="add-item" (click)="addItem()">
+        Agregar ítem
+      </button>
+      <button
+        appButton
+        variant="secondary"
+        type="button"
+        data-action="reset-quote"
+        (click)="resetExample()"
+      >
+        Restablecer ejemplo
+      </button>
+    </div>
+    <p class="form-hint">
+      Puedes editar los campos de cada ítem o eliminarlo. El total se actualiza automáticamente.
+    </p>
+  </form>
+
+  <aside class="quote-summary" aria-labelledby="summary-title" tabindex="0">
+    <p class="summary-label">Tu cálculo</p>
+    <h2 id="summary-title">Resumen de cotización</h2>
+    <div class="summary-total">
+      <p>Total general estimado</p>
+      <output
+        id="quote-total"
+        aria-label="Total general estimado"
+        aria-live="polite"
+        aria-atomic="true"
+        >{{ summary()?.total ?? '—' }}</output
+      >
+    </div>
+    <div class="pdf-export">
+      <button
+        appButton
+        variant="light"
+        type="button"
+        data-action="download-pdf"
+        [disabled]="!summary() || exportingPdf()"
+        [attr.aria-busy]="exportingPdf()"
+        aria-describedby="pdf-export-hint"
+        (click)="downloadPdf()"
+      >
+        {{ exportingPdf() ? 'Generando PDF…' : 'Descargar PDF' }}
+      </button>
+      <p id="pdf-export-hint">
+        {{
+          summary()
+            ? 'Incluye el detalle de todos los ítems y el total general.'
+            : 'Completa todos los ítems para habilitar la descarga.'
+        }}
+      </p>
+      @if (pdfError(); as error) {
+        <p class="pdf-error" role="alert">{{ error }}</p>
+      }
+    </div>
+    <ul class="summary-items">
+      @for (line of lines(); track line.id) {
+        <li [attr.data-summary-id]="line.id">
+          <h3>{{ line.description }}</h3>
+          @if (line.details; as detail) {
+            <p>{{ detail.quantity }} · {{ detail.dimensions }} cada una · {{ detail.area }}</p>
+            <dl class="line-breakdown">
+              <div>
+                <dt>Impresión</dt>
+                <dd>{{ detail.printing }}</dd>
+              </div>
+              <div>
+                <dt>Listones</dt>
+                <dd>{{ detail.slats }}</dd>
+              </div>
+              <div>
+                <dt>Subtotal del ítem</dt>
+                <dd>{{ detail.total }}</dd>
+              </div>
+            </dl>
+          } @else {
+            <p class="line-pending">Completa los valores de este ítem.</p>
+          }
+        </li>
+      }
+    </ul>
+    @if (summary(); as result) {
+      <dl class="summary-breakdown">
+        <div>
+          <dt>Cantidad de piezas</dt>
+          <dd id="quote-total-quantity">{{ result.quantity }}</dd>
+        </div>
+        <div>
+          <dt>Área total</dt>
+          <dd id="quote-area">{{ result.area }}</dd>
+        </div>
+        <div>
+          <dt>Subtotal de impresión</dt>
+          <dd id="quote-printing">{{ result.printing }}</dd>
+        </div>
+        <div>
+          <dt>Listones</dt>
+          <dd id="quote-slats-total">{{ result.slats }}</dd>
+        </div>
+      </dl>
+    } @else {
+      <p class="summary-pending">
+        {{
+          draft().items.length
+            ? 'Completa o corrige todos los ítems para ver el total general.'
+            : 'Agrega al menos un ítem para calcular tu cotización.'
+        }}
+      </p>
+    }
+    <p class="summary-note">
+      Por ítem: ancho × alto × cantidad × precio por m² + precio total de listones.
+    </p>
+    <p class="summary-note">
+      La impresión se redondea a dos decimales en cada ítem antes de sumar el total.
+    </p>
+  </aside>
+</div>
+
+<div class="container quote-footnote">
+  <p>
+    Esta calculadora muestra una estimación con los valores que ingreses. No se guarda ni se envía
+    una solicitud.
+  </p>
+  <p>Para eventos y otros trabajos, el alcance y el presupuesto se acuerdan según el proyecto.</p>
+</div>

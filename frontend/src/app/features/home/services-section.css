@@ -1,0 +1,73 @@
+:host {
+  display: block;
+}
+.section-intro {
+  margin-bottom: calc(var(--spacing) * 10);
+}
+.section-intro > p {
+  max-width: 28rem;
+}
+.services-grid {
+  gap: calc(var(--spacing) * 5);
+}
+.service-card {
+  display: flex;
+  flex-direction: column;
+  padding: calc(var(--spacing) * 7);
+  background: var(--color-surface);
+  border-radius: var(--radius-button);
+}
+.service-card:nth-child(2) {
+  background: var(--color-lime);
+}
+.service-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: calc(var(--spacing) * 12);
+}
+.service-top span {
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+}
+.service-top app-icon {
+  font-size: 2rem;
+}
+h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-subheading);
+  font-weight: 550;
+  letter-spacing: -0.04em;
+  line-height: 1.2;
+}
+.service-description {
+  max-width: 28rem;
+  margin-top: calc(var(--spacing) * 5);
+  color: var(--color-ink-soft);
+  line-height: 1.8;
+  font-size: var(--text-sm);
+}
+.service-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spacing) * 2);
+  padding: 0;
+  margin-block: calc(var(--spacing) * 6) calc(var(--spacing) * 10);
+  list-style: none;
+}
+.service-tags li {
+  padding: calc(var(--spacing) * 1) calc(var(--spacing) * 3);
+  border: 1px solid currentColor;
+  border-radius: 2rem;
+  color: var(--color-ink-soft);
+  font-size: var(--text-xs);
+}
+.text-link {
+  align-self: start;
+  margin-top: auto;
+}
+@media (min-width: 48rem) {
+  .service-card {
+    padding: calc(var(--spacing) * 10);
+  }
+}

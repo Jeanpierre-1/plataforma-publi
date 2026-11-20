@@ -1,0 +1,96 @@
+<section
+  class="quote-item"
+  [attr.aria-labelledby]="itemId() + '-title'"
+  [attr.data-item-id]="itemId()"
+>
+  <div class="item-header">
+    <h2 [id]="itemId() + '-title'">Ítem {{ position() }}</h2>
+    <button
+      appButton
+      variant="secondary"
+      type="button"
+      data-action="remove-item"
+      [attr.aria-label]="'Eliminar ítem ' + position()"
+      (click)="remove.emit(itemId())"
+    >
+      Eliminar
+    </button>
+  </div>
+
+  <div class="item-identification">
+    <app-quote-input
+      [inputId]="itemId() + '-description'"
+      label="Descripción (opcional)"
+      inputMode="text"
+      placeholder="Ej. Gráfica para el escenario"
+      hint="Identifica esta pieza dentro de la cotización."
+      [field]="field().description"
+    />
+    <app-quote-input
+      [inputId]="itemId() + '-quantity'"
+      label="Cantidad de piezas"
+      inputMode="numeric"
+      hint="Piezas con las mismas medidas y precio por m²."
+      [field]="field().quantity"
+    />
+  </div>
+
+  <fieldset>
+    <legend>Medidas de cada pieza</legend>
+    <div class="dimensions-grid">
+      <app-quote-input
+        [inputId]="itemId() + '-width'"
+        label="Ancho (m)"
+        suffix="m"
+        hint="En metros, hasta 3 decimales."
+        [field]="field().width"
+      />
+      <app-quote-input
+        [inputId]="itemId() + '-height'"
+        label="Alto (m)"
+        suffix="m"
+        hint="En metros, hasta 3 decimales."
+        [field]="field().height"
+      />
+    </div>
+  </fieldset>
+
+  <app-quote-input
+    [inputId]="itemId() + '-rate'"
+    label="Precio por m² (S/)"
+    prefix="S/"
+    hint="Precio para este ítem, con hasta 2 decimales."
+    [field]="field().pricePerSquareMeter"
+  />
+
+  <fieldset class="slats-fieldset">
+    <legend>Listones opcionales</legend>
+    <label class="slats-toggle" [for]="itemId() + '-slats'">
+      <input
+        [id]="itemId() + '-slats'"
+        type="checkbox"
+        [formField]="field().includeSlats"
+        [attr.aria-controls]="itemId() + '-slats-group'"
+      />
+      <span
+        ><strong>¿Necesitas listones?</strong
+        ><span>Añade el importe total para todas las piezas de este ítem.</span></span
+      >
+    </label>
+    <div [id]="itemId() + '-slats-group'" class="slats-price-group">
+      @if (field()().value().includeSlats) {
+        <app-quote-input
+          [inputId]="itemId() + '-slats-price'"
+          label="Precio total de listones (S/)"
+          prefix="S/"
+          placeholder="Ej. 20.00"
+          hint="Este importe se suma una sola vez, sin multiplicarlo por la cantidad."
+          [field]="field().slatsPrice"
+        />
+      }
+    </div>
+  </fieldset>
+  <div class="item-subtotal">
+    <span>Subtotal del ítem</span><strong>{{ subtotal() }}</strong>
+  </div>
+</section>

@@ -1,0 +1,102 @@
+<section class="hero container" aria-labelledby="hero-title">
+  <div class="hero-copy">
+    <p class="eyebrow">Eventos + publicidad gráfica</p>
+    <h1 id="hero-title">Ideas que se ven.<br />Momentos que<br /><span>se viven.</span></h1>
+    <p class="hero-description">
+      Eventos musicales de cumbia y folklore e impresión de paneles, pasacalles y gigantografías. De
+      lo que imaginas a lo que todos pueden ver.
+    </p>
+    <div class="hero-actions flex flex-wrap gap-3">
+      <a appButton routerLink="/cotizaciones"
+        >Hablemos de tu proyecto <app-icon name="diagonal"
+      /></a>
+      <a appButton variant="secondary" routerLink="/" fragment="servicios"
+        >Explorar servicios <app-icon name="arrow"
+      /></a>
+    </div>
+    <p class="hero-footnote">
+      <span aria-hidden="true">↳</span> De una idea a un espacio. De una marca a gran formato.
+    </p>
+  </div>
+  <figure class="hero-art">
+    <div class="art-label">
+      <span class="art-label-dot" aria-hidden="true"></span> Donde las ideas toman forma
+      <app-icon name="diagonal" />
+    </div>
+    <img
+      ngSrc="/images/creative-composition.svg"
+      width="640"
+      height="660"
+      priority
+      alt="Composición conceptual de un escenario y piezas gráficas en coral, verde y crema."
+      sizes="(min-width: 1024px) 45vw, (min-width: 768px) 70vw, 100vw"
+      [disableOptimizedSrcset]="true"
+    />
+    <figcaption>Exploración visual · {{ siteName }}</figcaption>
+  </figure>
+</section>
+
+<div class="discipline-band" aria-label="Nuestras especialidades">
+  <div class="container flex flex-wrap items-center justify-between gap-5">
+    <span>Ideas con presencia.</span>
+    <ul class="flex flex-wrap items-center gap-x-7 gap-y-3">
+      <li><app-icon name="sparkle" /> Organización de eventos</li>
+      <li><app-icon name="sparkle" /> Producción</li>
+      <li><app-icon name="sparkle" /> Gran formato</li>
+    </ul>
+  </div>
+</div>
+
+<app-services-section />
+
+<section class="approach section-space" aria-labelledby="approach-title">
+  <div class="container grid gap-10 lg:grid-cols-2 lg:gap-20">
+    <div>
+      <p class="eyebrow mb-5">El punto de partida</p>
+      <h2 id="approach-title" class="section-title">Cada proyecto<br />empieza con una idea.</h2>
+      <p class="body-copy mt-6">
+        Un evento que quieres organizar. Una campaña que necesita hacerse visible. Estos detalles
+        ayudan a dar el primer paso.
+      </p>
+    </div>
+    <ol class="project-prompts">
+      <li>
+        <span class="prompt-number">01</span>
+        <div>
+          <h3>¿Qué tienes en mente?</h3>
+          <p>El tipo de evento o la pieza gráfica que necesitas.</p>
+        </div>
+      </li>
+      <li>
+        <span class="prompt-number">02</span>
+        <div>
+          <h3>¿Dónde y para cuándo?</h3>
+          <p>El espacio, las dimensiones y la fecha estimada.</p>
+        </div>
+      </li>
+      <li>
+        <span class="prompt-number">03</span>
+        <div>
+          <h3>¿Qué quieres transmitir?</h3>
+          <p>Tu objetivo, tus referencias y la esencia de tu marca.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="project-cta container" aria-labelledby="cta-title">
+  <div>
+    <p class="eyebrow mb-5">Tu próxima idea</p>
+    <h2 id="cta-title">Hagamos espacio<br />para algo grande.</h2>
+  </div>
+  <div class="cta-action">
+    <p>
+      Calcula tu gigantografía por metro cuadrado y añade el precio de listones si los necesitas.
+    </p>
+    <a appButton variant="light" routerLink="/cotizaciones"
+      >Ir a cotizaciones <app-icon name="diagonal"
+    /></a>
+  </div>
+  <app-icon class="cta-sparkle" name="sparkle" />
+</section>

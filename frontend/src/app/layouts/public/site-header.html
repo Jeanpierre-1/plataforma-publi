@@ -1,0 +1,28 @@
+<header class="site-header">
+  <div class="container header-inner">
+    <app-brand [priority]="true" />
+    <button
+      #menuToggle
+      type="button"
+      class="menu-toggle"
+      [attr.aria-label]="menuLabel()"
+      [attr.aria-expanded]="menuOpen()"
+      aria-controls="public-navigation"
+      (click)="toggleMenu()"
+    >
+      <app-icon [name]="menuOpen() ? 'close' : 'menu'" />
+      <span>Menú</span>
+    </button>
+    <div id="public-navigation" class="navigation-panel" [class.is-open]="menuOpen()">
+      <app-site-nav (selected)="closeMenu()" />
+      <a
+        appButton
+        routerLink="/cotizaciones"
+        routerLinkActive="is-active"
+        ariaCurrentWhenActive="page"
+        (click)="closeMenu()"
+        >Cotizar un proyecto <app-icon name="diagonal"
+      /></a>
+    </div>
+  </div>
+</header>

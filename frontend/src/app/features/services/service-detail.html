@@ -1,0 +1,100 @@
+<div class="container breadcrumb-row"><app-breadcrumbs [current]="service().label" /></div>
+
+<section class="container service-hero" aria-labelledby="service-title">
+  <div class="hero-copy">
+    <p class="service-label">Sanabria Group · {{ service().label }}</p>
+    <h1 id="service-title">{{ service().title }}</h1>
+    <p class="hero-description">{{ service().description }}</p>
+    <div class="hero-actions flex flex-wrap gap-3">
+      <a appButton [routerLink]="service().path" fragment="propuesta">Explorar el servicio</a>
+      <a appButton variant="secondary" [routerLink]="service().path" fragment="preparar-proyecto"
+        >Preparar mi proyecto</a
+      >
+    </div>
+  </div>
+  <figure class="service-art">
+    <img
+      [ngSrc]="service().image.src"
+      width="640"
+      height="520"
+      priority
+      [alt]="service().image.alt"
+      [disableOptimizedSrcset]="true"
+    />
+    <figcaption>{{ service().image.caption }}</figcaption>
+  </figure>
+</section>
+
+<section
+  id="propuesta"
+  class="container section-space offering-section"
+  aria-labelledby="offering-title"
+>
+  <div class="section-intro">
+    <p class="service-label">Nuestra propuesta</p>
+    <h2 id="offering-title" class="section-title">{{ service().introduction.title }}</h2>
+    <p class="body-copy">{{ service().introduction.description }}</p>
+  </div>
+  <div class="offering-grid">
+    @for (offering of service().offerings; track offering.title) {
+      <article class="offering">
+        <h3>{{ offering.title }}</h3>
+        <p>{{ offering.description }}</p>
+      </article>
+    }
+  </div>
+</section>
+
+<section
+  id="preparar-proyecto"
+  class="preparation section-space"
+  aria-labelledby="preparation-title"
+>
+  <div class="container preparation-layout">
+    <div>
+      <p class="service-label">Antes de dar el siguiente paso</p>
+      <h2 id="preparation-title" class="section-title">Tu idea es un buen comienzo.</h2>
+      <p class="body-copy">
+        Reúne estos detalles para plantear tu proyecto. No necesitas tenerlo todo resuelto desde el
+        principio.
+      </p>
+      <p class="preparation-note">Esta guía es informativa. No recoge ni envía datos.</p>
+    </div>
+    <ul class="preparation-list">
+      @for (item of service().preparation; track item.title) {
+        <li>
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.description }}</p>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
+
+<section class="container section-space questions-layout" aria-labelledby="questions-title">
+  <div>
+    <p class="service-label">Para orientarte</p>
+    <h2 id="questions-title" class="section-title">Preguntas frecuentes.</h2>
+  </div>
+  <div class="questions">
+    @for (item of service().questions; track item.question) {
+      <details>
+        <summary>{{ item.question }}<span class="faq-mark" aria-hidden="true">+</span></summary>
+        <p>{{ item.answer }}</p>
+      </details>
+    }
+  </div>
+</section>
+
+<section class="container related-service" aria-labelledby="related-title">
+  <div>
+    <p class="service-label">También en Sanabria Group</p>
+    <h2 id="related-title">{{ service().related.title }}</h2>
+    <p>{{ service().related.description }}</p>
+  </div>
+  <a appButton variant="secondary" [routerLink]="service().related.path">{{
+    service().related.label
+  }}</a>
+</section>
+
+<app-project-cta />
